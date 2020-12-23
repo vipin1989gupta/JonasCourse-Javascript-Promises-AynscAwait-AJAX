@@ -78,37 +78,61 @@
 //     console.log(error);
 // })
 
-///////////////////// From Promises to AsyncAwait
-const getIDs=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        resolve([523,883,432,974]);
-    },0);
-});
-const getRecipe=function(recID){
-    return new Promise((resolve,reject)=>{
-        setTimeout((id)=>{
-            const recipe={title:'Fresh tomato pasta',publisher:'Minh'}
-            resolve(recipe);
-        },0,recID)
+// ///////////////////// From Promises to AsyncAwait
+// const getIDs=new Promise((resolve,reject)=>{
+//     setTimeout(()=>{
+//         resolve([523,883,432,974]);
+//     },0);
+// });
+// const getRecipe=function(recID){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout((id)=>{
+//             const recipe={title:'Fresh tomato pasta',publisher:'Minh'}
+//             resolve(recipe);
+//         },0,recID)
+//     })
+// }
+// const getRelated=function(publisher){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout((publisher)=>{
+//             resolve(['Cookie',publisher]);
+//         },0,publisher)
+//     })
+// }
+
+// async function getRecipesAW(){
+//     const IDs=await getIDs;
+//     console.log(IDs);
+//     const recipe=await getRecipe();
+//     console.log(recipe);
+//     const relateRecipe=await getRelated(recipe.publisher);
+//     console.log(relateRecipe);
+// }
+// getRecipesAW();
+// for(let i=0;i<5000;i++){
+//     console.log(i);
+// }
+
+////////// Making AJAX Calls with Fetch and Promises
+
+function getWeather(id){
+    fetch(`https://www.metaweather.com/api/location/${id}/`)
+    .then((result)=>{
+        console.log(`First line`);
+        console.log(result);
+        return result.json();
     })
-}
-const getRelated=function(publisher){
-    return new Promise((resolve,reject)=>{
-        setTimeout((publisher)=>{
-            resolve(['Cookie',publisher]);
-        },0,publisher)
+    .then(data=>{
+        console.log(`Data here`);
+        console.log(data);
+        const weatherToday=data.consolidated_weather[0];
+        console.log(`The weather today in ${data.title}`);
+        console.log(weatherToday);
     })
+    .catch(error=>{
+        console.log(`Error here2`);
+        console.log(error);
+    });
 }
 
-async function getRecipesAW(){
-    const IDs=await getIDs;
-    console.log(IDs);
-    const recipe=await getRecipe();
-    console.log(recipe);
-    const relateRecipe=await getRelated(recipe.publisher);
-    console.log(relateRecipe);
-}
-getRecipesAW();
-for(let i=0;i<5000;i++){
-    console.log(i);
-}
+getWeather(11183702131923218937131237112312323);
