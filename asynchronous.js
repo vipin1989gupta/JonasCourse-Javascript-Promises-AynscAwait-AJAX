@@ -115,24 +115,45 @@
 
 ////////// Making AJAX Calls with Fetch and Promises
 
-function getWeather(id){
-    fetch(`https://www.metaweather.com/api/location/${id}/`)
-    .then((result)=>{
-        console.log(`First line`);
-        console.log(result);
-        return result.json();
-    })
-    .then(data=>{
-        console.log(`Data here`);
-        console.log(data);
-        const weatherToday=data.consolidated_weather[0];
-        console.log(`The weather today in ${data.title}`);
-        console.log(weatherToday);
-    })
-    .catch(error=>{
-        console.log(`Error here2`);
-        console.log(error);
-    });
-}
+// function getWeather(id){
+//     fetch(`https://www.metaweather.com/api/location/${id}/`)
+//     .then((result)=>{
+//         console.log(`First line`);
+//         console.log(result);
+//         return result.json();
+//     })
+//     .then(data=>{
+//         console.log(`Data here`);
+//         console.log(data);
+//         const weatherToday=data.consolidated_weather[0];
+//         console.log(`The weather today in ${data.title}`);
+//         console.log(weatherToday);
+//     })
+//     .catch(error=>{ console.log(`Error here2`); console.log(error); });
+// }
 
-getWeather(11183702131923218937131237112312323);
+// //getWeather(1118370);
+// getWeather(11183702131923218937131237112312323);
+
+///////////// AJAX call with AsyncAwait
+ async function getWeatherAW(woeid){
+    try{
+        const result=await fetch(`https://www.metaweather.com/api/location/${woeid}/`);
+        const data=await result.json();
+        const today= data.consolidated_weather[0];
+        console.log(`Temperatures today in ${data.title} is between ${today.min_temp} and ${today.max_temp}`);
+        return data;
+    }
+    catch(error){
+        //console.log(error);
+        alert(error);
+    }
+};
+
+getWeatherAW(1118370);
+let dataHoChiMinh;
+getWeatherAW(1252431).then((data)=>{
+    dataHoChiMinh=data;
+    console.log(dataHoChiMinh);
+})
+getWeatherAW(111837000000000000000000000000000);
