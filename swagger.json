@@ -1,0 +1,125 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "REST APIs",
+      "description": "",
+      "version": "1.0"
+    },
+    "produces": ["application/json"],
+    "paths": {
+      "/records/addRecord": {
+        "post": {
+            "tags": ["Records"],
+            "summary" : "Add Patient Data",
+            "description": "Use this method to add Data into DB.",
+            "produces":["application/json"],
+            "parameters" :[
+                {
+                    "in": "body",
+                    "name": "ResourceData",
+                    "description": "Data request object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/patientData"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "successful operation",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "status": "string"
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Failed to create Record"
+                }
+            }
+        }
+      },
+      "/records/getRecord/{email}": {
+        "get": {
+            "tags": ["Records"],
+            "summary" : "Get Records Data by email",
+            "description": "Use this method to get Data from Ledger.",
+            "produces":["application/json"],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "email",
+                    "description": "Data request object",
+                    "required": true
+                }],
+            "responses": {
+               "200": {
+                   "description": "successful operation",
+                   "schema": {
+                       "type": "object"
+                   }
+               },
+               "400": {
+                   "description": "Data not present in ledger"
+               }
+           }
+        }
+      }
+    },
+    "definitions": {
+        "patientData": {
+            "type": "object",
+            "required": [
+                "firstName",
+                "lastName",
+                "dob",
+                "email",
+                "phoneNumber",
+                "street",
+                "city",
+                "state",
+                "country",
+                "postalCode"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string",
+                    "format": "Harish"
+                },
+                "lastName": {
+                    "type": "string",
+                    "format": "Reddy"
+                },
+                "dob": {
+                    "type": "string",
+                    "format": "10Dec1990"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "mailid@gmail"
+                },
+                "street": {
+                    "type": "string",
+                    "format": "Outer ring road"
+                },
+                "state": {
+                    "type": "string",
+                    "format": "Karnataka"
+                },
+                "city": {
+                    "type": "string",
+                    "format": "Bangalore"
+                },
+                "country": {
+                    "type": "string",
+                    "format": "India"
+                },
+                "postalCode": {
+                    "type": "string",
+                    "format": 560076
+                }
+            }
+        }
+        }
+ }

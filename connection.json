@@ -1,0 +1,90 @@
+{
+    "name": "Example Local Network",
+    "version": "1.0.0",
+    "client": {
+      "organization": "Org1"
+    },
+    "channels": {
+      "defaultchannel": {
+        "orderers": ["orderer.example.com"],
+        "peers": {
+          "peer0.org1.example.com": {},
+          "peer0.org2.example.com": {}
+        }
+      }
+    },
+    "organizations": {
+      "org1": {
+        "mspid": "org1",
+        "peers": ["peer0.org1.example.com"],
+        "certificateAuthorities": ["ca.org1.example.com"]
+      },
+      "org2": {
+        "mspid": "org2",
+        "peers": ["peer0.org2.example.com"],
+        "certificateAuthorities": ["ca.org2.example.com"]
+      }
+    },
+    "orderers": {
+      "orderer.example.com": {
+        "url": "grpc://localhost:7050",
+        "grpcOptions": {
+          "grpc.http2.keepalive_time": 360,
+          "grpc.keepalive_time_ms": 360000,
+          "grpc.http2.keepalive_timeout": 180,
+          "grpc.keepalive_timeout_ms": 180000
+        }
+      }
+    },
+    "peers": {
+      "peer0.org1.example.com": {
+        "url": "grpc://localhost:7051",
+        "eventUrl": "grpcs://localhost:7053",
+        "grpcOptions": {
+          "grpc.http2.keepalive_time": 360,
+          "grpc.keepalive_time_ms": 360000,
+          "grpc.http2.keepalive_timeout": 180,
+          "grpc.keepalive_timeout_ms": 180000
+        }
+      },
+      "peer0.org2.example.com": {
+        "url": "grpc://localhost:8051",
+        "eventUrl": "grpcs://localhost:8053",
+        "grpcOptions": {
+          "grpc.http2.keepalive_time": 360,
+          "grpc.keepalive_time_ms": 360000,
+          "grpc.http2.keepalive_timeout": 180,
+          "grpc.keepalive_timeout_ms": 180000
+        }
+      }
+    },
+    "certificateAuthorities": {
+      "ca.org1.example.com": {
+        "url": "http://localhost:7054",
+        "httpOptions": {
+          "verify": true
+        },
+        "registrar": [
+          {
+            "enrollId": "admin",
+            "enrollSecret": "adminpw"
+          }
+        ],
+        "caName": "ca.org1.example.com"
+      },
+      "ca.org2.example.com": {
+        "url": "http://localhost:8054",
+        "httpOptions": {
+          "verify": true
+        },
+        "registrar": [
+          {
+            "enrollId": "admin",
+            "enrollSecret": "adminpw"
+          }
+        ],
+        "caName": "ca.org2.example.com"
+      }
+    }
+  }
+  
